@@ -4,20 +4,16 @@
 
 <h1>Pets</h1>
     <div class="row">
-        <div class="col-md-4">
-            {% for pet in pets %}
+        {% for pet in pets %}
+        <div class="col-4">
             <img class="img-thumbnail" src="{{pet.photo_url}}" alt="pet">
             <a href="">{{pet.name}}</a>
-            {% if pet.available %} is available {% endif %}
+        {% if pet.available %} is available {% endif %}
         </div>
-            {% else %}
-        <div>
-            Not Available :(
-        </div>
-            {% endfor %}
+        {% else %}
+        <!-- <div class="col-12">Not Available</div> -->
+        {% endfor %}
     </div>
 
-    <a class="btn btn-success" href="">Add Pet</a>
-
-
+    <a class="btn btn-success" href="/add">Add Pet</a>
 {% endblock %}
