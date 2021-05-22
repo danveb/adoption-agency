@@ -28,7 +28,7 @@ def add_pet():
     if form.validate_on_submit():
         # form data 
         name = form.name.data
-        species = form.name.data
+        species = form.species.data
         photo_url = form.photo_url.data
         age = form.age.data
         notes = form.notes.data 
@@ -45,3 +45,9 @@ def add_pet():
     else: 
         # render form 
         return render_template('add_pet_form.html', form=form)
+
+@app.route('/<int:pet_id>')
+def display_pet(pet_id):
+    """Display Pet Details"""
+    pet = Pet.query.get_or_404(pet_id)
+    return render_template('pet_details.html', pet=pet) 
