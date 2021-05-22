@@ -1,7 +1,7 @@
 from flask import Flask, request, render_template, redirect, flash, session
 from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, Pet 
-from forms import AddPetForm
+from forms import AddPetForm, EditPetForm 
 
 app = Flask(__name__)
 
@@ -17,11 +17,13 @@ db.create_all()
 
 @app.route('/')
 def home_page():
+    """Display Home Page"""
     pets = Pet.query.all()
     return render_template('home.html', pets=pets)
 
 @app.route('/add', methods=["GET", "POST"]) 
 def add_pet():
+    """Add New Pet"""
     form = AddPetForm() # make new Form Object 
 
     # validate CSRF Token on submit 
@@ -51,3 +53,20 @@ def display_pet(pet_id):
     """Display Pet Details"""
     pet = Pet.query.get_or_404(pet_id)
     return render_template('pet_details.html', pet=pet) 
+
+@app.route('/<int:pet_id>/edit', methods=["GET", "POST"]) 
+def edit_pet(pet_id):
+    """Edit Pet Details"""
+    pet = Pet.query.get_or_404(pet_id)
+    form = EditPetForm(obj=pet)
+
+    if form.validate_on_submit():
+        pet.photo_url = form.photo_url.data
+        pet.notes = form.notes.data
+        pet.available = form.available.data 
+        
+        db.session.commit() 
+
+        return redirect('/')
+    else:
+        return render_template('edit_pet_form.html', pet=pet, form=form)

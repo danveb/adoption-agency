@@ -5,7 +5,7 @@
 <div class="container">
     <h3 class="display-3">Pet Details</h3>
     {% if pet.photo_url %}
-    <img src="{{ pet.photo_url }}" alt="pet picture" class="img-thumbnail">
+    <img src="{{ pet.photo_url }}" alt="pet picture" class="img-thumbnail" style="width: 500px; height: 500px">
     {% endif %}
     <table class="table table-striped ">
       <thead class="thead-dark">
@@ -21,7 +21,8 @@
         </tr>
       </tbody>
     </table>
-    <a href="" class="btn btn-danger">Edit Pet</a>
+    <a href="/" class="btn btn-info">Go Back</a>
+    <a href="/{{pet.id}}/edit" class="btn btn-danger">Edit Pet</a>
   </div>
 
 {% endblock %}
