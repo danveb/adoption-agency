@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Pets{% endblock %}
+{% block content %}
+
+<div class="container">
+    <h3 class="display-3">Pet Details</h3>
+    {% if pet.photo_url %}
+    <img src="{{ pet.photo_url }}" alt="pet picture" class="img-thumbnail">
+    {% endif %}
+    <table class="table table-striped ">
+      <thead class="thead-dark">
+        <th>Name</th>
+        <th>Species</th>
+        <th>Age</th>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{pet.name}}</td>
+          <td>{{pet.species}}</td>
+          <td>{{pet.age}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <a href="" class="btn btn-danger">Edit Pet</a>
+  </div>
+
+{% endblock %}
