@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}Edit Pet Form{% endblock %}
+{% block content %}
+
+<div class="container">
+    <h3 class="display-3">{{pet.name}}</h3>
+    {% if pet.photo_url %}
+    <img src="{{ pet.photo_url }}" alt="pet picture" class="img-thumbnail" style="width: 500px; height: 500px">
+    {% endif %}
+
+    <h3>Update Pet Form</h3>
+    <form method="POST">
+        <!-- CSRF Token -->
+        {{ form.hidden_tag() }}
+        <!-- loop -->
+        {% for field in form 
+            if field.widget.input_type != 'hidden' %}
+        <div class="form-group">
+            {{field.label}}
+            <!-- Add a class to Jinja variable -->
+            {{field(class_="form-control")}}
+            {% for err in field.errors %}
+            <small class="form-text text-danger">{{err}}</small>
+            {% endfor %}
+        </div>
+        {% endfor %}
+        <a href="/{{pet.id}}" class="btn btn-info">Go Back</a>
+        <button class="btn btn-success">Submit</button>
+    </form>
+  </div>
+
+{% endblock %}
